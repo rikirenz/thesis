@@ -1,0 +1,540 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%12pt: grandezza carattere
+                                        %a4paper: formato a4
+                                        %openright: apre i capitoli a destra
+                                        %twoside: serve per fare un
+                                        %   documento fronteretro
+                                        %report: stile tesi (oppure book)
+\documentclass[12pt,a4paper,openright,twoside]{report}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per scrivere in italiano
+\usepackage[italian]{babel}
+\usepackage[latin1]{inputenc}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per impostare il documento
+\usepackage{fancyhdr}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per avere l'indentazione
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   all'inizio dei capitoli, ...
+\usepackage{indentfirst}
+%
+%%%%%%%%%libreria per mostrare le etichette
+%\usepackage{showkeys}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per inserire grafici
+\usepackage{graphicx}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per utilizzare font
+                                        %   particolari ad esempio
+                                        %   \textsc{}
+\usepackage{newlfont}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%librerie matematiche
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{amsthm}
+%
+\oddsidemargin=30pt \evensidemargin=20pt%impostano i margini
+\hyphenation{sil-la-ba-zio-ne pa-ren-te-si}%serve per la sillabazione: tra parentesi 
+					   %vanno inserite come nell'esempio le parole 
+%					   %che latex non riesce a tagliare nel modo giusto andando a capo.
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%comandi per l'impostazione
+                                        %   della pagina, vedi il manuale
+                                        %   della libreria fancyhdr
+                                        %   per ulteriori delucidazioni
+\pagestyle{fancy}\addtolength{\headwidth}{20pt}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection \ #1}{}}
+\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+\cfoot{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\linespread{1.3}                        %comando per impostare l'interlinea
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%definisce nuovi comandi
+%
+\begin{document}
+\begin{titlepage}                       %crea un ambiente libero da vincoli
+                                        %   di margini e grandezza caratteri:
+                                        %   si pu\`o modificare quello che si
+                                        %   vuole, tanto fuori da questo
+                                        %   ambiente tutto viene ristabilito
+%
+\thispagestyle{empty}                   %elimina il numero della pagina
+\topmargin=6.5cm                        %imposta il margina superiore a 6.5cm
+\raggedleft                             %incolonna la scrittura a destra
+\large                                  %aumenta la grandezza del carattere
+                                        %   a 14pt
+\em                                     %emfatizza (corsivo) il carattere
+Questa \`e la \textsc{Dedica}:\\
+ognuno pu\`o scrivere quello che vuole, \\
+anche nulla \ldots                      %\ldots lascia tre puntini
+\newpage                                %va in una pagina nuova
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage{\pagestyle{empty}\cleardoublepage}%non numera l'ultima pagina sinistra
+\end{titlepage}
+\pagenumbering{roman}                   %serve per mettere i numeri romani
+\chapter*{Introduzione}                 %crea l'introduzione (un capitolo
+                                        %   non numerato)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\rhead[\fancyplain{}{\bfseries
+INTRODUZIONE}]{\fancyplain{}{\bfseries\thepage}}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
+INTRODUZIONE}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%aggiunge la voce Introduzione
+                                        %   nell'indice
+\addcontentsline{toc}{chapter}{Introduzione}
+
+%
+
+In questo elaborato si descrive lo stato dell'arte per quanto concerne gli applicativi di simulazione dei processi aziendali definiti utilizzando la specifica \textbf{BPMN 2.0}. In seguito si descrive nel dettaglio lo sviluppo e il funzionamento di un applicazione in grado di simulare processi aziendali definiti tramite le specifiche \textbf{BPMN} e \textbf{BPSIM}.
+
+La notazione \textbf{BPMN} ha come obbiettivo forniere uno strumento di rappresentazione univoco al fine di modellare, progettare ed eventualmente informatizzare i processi aziendali. In questo elaborato si affianca a questa notazione un ulteriore standard chiamato \textbf{BPSIM}. Questa notazione permette di decorare il modello con informazioni utili al fine di simulare il processo \textbf{BPMN}descritto.
+
+Per eseguire tale simulazione si è utilizzato \textbf{Camunda} come motore di simulazione. Questo applicativo è un workflow engine in grado di processare ed eseguire buona parte dei simboli definiti nello standard \textbf{BPMN 2.0}.
+
+Si è reso quindi necessario lo sviluppo di un applicazione che, utilizzando le funzionalità esposte dall'applicativo \textbf{Camunda}, eseguisse la simulazione integrando le informazioni fornite dalla specifica \textbf{BPSIM} fornendo così risultati di notevole interesse per quanto concerne la valutazione dei processi aziendali.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\tableofcontents                        %crea l'indice
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
+INDICE}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\listoffigures                          %crea l'elenco delle figure
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\listoftables                           %crea l'elenco delle tabelle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\chapter{Business Process Simulation}                %crea il capitolo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}
+\pagenumbering{arabic}                  %mette i numeri arabi
+
+Questo capitolo itroduce la nozione di Business Process Simulation e per quale motivo tale strumento è considerato essenziale nei processi decisionali di un'azienda. Successivamente viene definito cosa è un processo aziendale e la sua caratterizzazione.
+Conseguentemente vengono descritti gli elementi utilizzati per la modellazione e le relative misure. Infine si discutono le best practises per modellare un processo descrivendo come queste si sono evolute.
+
+\section{Business Process Simulation}                 %crea la sezione
+
+Nel settore industriale come in quello dei servizi nuove sfide emergono e viene richiesto un costante lavoro di raffinamento e miglioramento agli agenti che operano in questi settori al fine di minimizzare i tempi con i quali si forniscono serivizi ai clienti, si sviluppano nuovi prodotti e si a soddisfare la domanda.
+
+E' compito del business manager minimizzare i rischi e massimizzare i profitti valutando quali alternative sono percorribili nel minor tempo possibili.
+
+Queste alternative possono avere diversa natura, possono richiedere un automazziazione o un esternalizzazione di un processo, l'espansione o il ridimensionamento della forza lavoro.
+
+Coloro che operano nell'ambito del business sono obbligati a valutare l'impatto di un cambiamento nei processi aziendali con accuratezza e velocità.
+
+La comprensione e la stima del tempo e del costo necessari al completamento di un prodotto è una sfida quotidiana per chi opera in questo campo.
+
+Tipicamente queste tipologie di problemi vengono affrontate utilizzando strumenti manageriali di diversa natura. Questi strumenti vengono impiegati dal managment per pianificare al meglio l'attività aziendale e pianificare i propri obbiettivi.
+
+Ad ogni modo, questa tipologia di analisi rimane molto complessa per la natura intrinseca delle attività analizzate. Infatti l'analisi delle tempistiche diviene molto complicata nel momento in cui entrano in gioco le numerose interdipendenze che si vengono a creare fra le varie risorse disponibili. Rendendo quindi questo processo di analisi dei costi e delle risorse utilizzate molto complesso nonostante l'utilizzo dei suddetti strumenti manageriali.
+
+
+A queste problematiche si aggiungono anche le richieste dei clienti; i quali con il passare del tempo tendono a pretendere costi sempre più bassi e qualità maggiore.
+
+Ne consegue che parametri come il costo richiesto per completare una determinata attività o i tempi d'attesa diventano quindi fondamentali per fornire una determinata quailità del servizio a un prezzo sempre competitivo.
+
+Tipicamente gli attori incarcati di prendere decisioni in merito alla gestione delle attività e al conseguente prezzo con il quale un prodotto si presenta sul mercato, hanno sempre utilizzato strumenti analitici.
+Tali strumenti però non tengono in considerazione l'aleatorietà e la dinamicità dei sistemi nei quali un'azienda è costretta ad operare.
+
+
+Un problema tipico per una impresa è il dimensionamento delle scorte.
+La variazione nella domanda, nei tempi di processamento delle richieste, la complessità data dalle operazioni di approvigionamento e le dinamiche di sistema portano a un incertezza che non può essere modellata o analizzata utilizzano gli strumenti più comuni quali fogli di lavoro elettronici e flowchart.
+
+Al contrario una simulazione eseguita tramite l'utilizzo di sistemi informatici combinata con la semplicità e la comprensione tipica dei flowchart fornisce uno strumento che in termini di costi, accuratezze 
+e rapidità nel processo decisionale non ha eguali oggigiorno.
+
+Questo strumento permette di valutare alternative prima che avvengano ingenti investimenti in termini di risorse e tempo.
+
+La capacità di visualizzare come un processo possa performare e come questi si vada poi a posizionare all'interno della struttura aziendale misurandone le performance e valutandone le eventuali variazioni in un modello computazionale rende la simulazione lo strumento de facto, strettamente necessario nel processo decisionale aziendale.
+
+Business Process Simulation (BPS) incarna il concetto che un business è una serie di processi in relazione fra di essi, e che questi processi consistono di attività che convertono input in output.
+
+A BPS model è in grado di catturare:
+\begin{itemize}                         %crea un elenco puntato
+\item I limiti delle risorse che si hanno a disposizione.
+\item Le regole decisionali.
+\item L'aleatorietà dell'ambiente nel quale l'azienda opera.
+\end{itemize}
+
+Un process model, quando simulato mima le operazioni dell'attività modellizzata.
+Questo viene realizzato eseuendo passo dopo passo gli eventi definiti dal modello tenendo conto delle tempistiche che questi eventi richiedono nel mondo reale.
+Infine la simulazione fornisce stastiche riguardanti gli elementi del modello.
+In questo modo è possibile valutare le performance di un processo analizzando i dati prodotti come output dalla simualzione.
+
+
+\section{Processo}                 %crea la sezione
+
+Diverse sono le definizioni di processo che si possono trovare in letteratura. In questo caso specifico si definisce un processo come:
+
+Una collezione di attvità che prende uno o più tipologie di input e crea un output che è di valore per il consumatore. [citare il libro]
+
+E' possibile quindi astrarre il concetto di processo definendo un modello. La definizione di un modello di processo permette di stabilire uno schema di riferimento così da permetterne una riproduzione che non sia dipendente dal contesto:
+
+Un modello di processo è una rappresentazione formale di una serie di attività in relazione fra loro che sono eseguite in un ordine prestabilito al fine di conseguire un determinato obbiettivo. [citare il libro]
+
+
+\subsection{Caratteristiche di un processo}
+
+Un processo possiede diverse caratteristiche che è necessario tenere in considerazione nel momento in cui si decide di modelizzarlo.
+
+Le caratteristiche che identificano un processo sono le seguenti:
+
+\begin{itemize}                    
+\item Dimensione
+	\begin{itemize}
+	\item Piccolo (sotto le 10 attività)
+	\item Medio (fra le 10 e le 25 attività)
+	\item Grande (sopra le 25 attività)
+	\end{itemize}
+	La dimensione è dipendente dalle attvità che compongono un processo. 
+	E' consigliato avere processi di dimensioni piccola o media al fine di ridurre al minimo la casualità generata dall'iteroperazione fra le varie attvità.
+\item Complessità
+	\begin{itemize}
+	\item Semplice
+	\item Intricato
+	\end{itemize}
+	Si considera un processo semplice quando...
+	Si considera un processo complicato quando...
+\item Durata 
+	\begin{itemize}
+	\item Breve
+	\item Lungo
+	\end{itemize}
+\item Tempo
+	\begin{itemize}
+	\item Dipendente
+	\item Indipendente
+	\end{itemize}
+	
+\end{itemize}
+
+
+
+
+\section{Elementi per la modellazione e Misure di perfromance}
+
+Sebbene i costrutti utilizzati per definire modelli di processo possano avere differenti nomenclature o caratteristiche per diversi prodotti, molti dei modelli di simulazione di busniess process contengono grosso modo gli stessi costrutti. Successivamente si descrivono le misure della performance di un modello.
+
+
+\subsection{Elementi base di modellazione}
+In questa sezione si descrivono gli elementi di modellazione utilizzati per descrivere un processo. 
+
+I quattro costrutti base sono:
+
+\begin{enumerate}
+\item \textbf{Token (entità)}: Altrimenti definiti come oggetti di flusso. Questi sono oggetti che possono essere processati dalle risorse. Non rappresentano altro che l'entità che una determinata attività coaudivata dalla risorsa responsabile processa nel momento in cui avviene la presa in carico.
+
+\item \textbf{Risorse}:
+Quegli elementi necessari a un gruppo di lavoro per comprendere un problema e implementare le relative soluzioni. Sono considerate risorse anche: il tempo che viene dedicato all'elaborazione di una soluzione, il capitale umano di un azienda, etc.
+\item \textbf{Attività}:
+I compiti svolti dalle entità come l'assemblaggio, la produzione di documenti o l'interazione con un cliente al fine di completare una richiesta. Inoltre un attività trova una definizione completa quando viene decorata: dal tempo richiesto per completarla e dalle risorse necessarie al suo soddisfacimento.
+\item \textbf{Connettori}:
+I connettori sono utilizzati per collegare processi e attività
+Le entità seguono tali connettori in base al flusso definito dal modello.
+I connettori sono utili per definire flussi paralleli o per rieseguire determinati attività in base alle regole definite dal modello.
+\end{enumerate}
+
+
+\subsection{Misure della performance di un modello}
+
+Le misure più comuni utilizzate per valutare le perfomance di un modello di processo sono il cycle time, il conteggio delle entità, l'utilizzo delle risorse e i costi delle attività.
+
+\begin{enumerate}
+\item \textbf{cycle time}: è il tempo totale che un entità impiega per attraversare l'intero process. Questo tempo include il tempo di processamento, il tempo di attesa, il tempo di spostamento da un attività all'altra, etc. Altri misure di notevole interesse sono corollario di questa detto ciò è possibile fornire anche il cycle time medio nel caso in cui vengano eseguite simulazioni multiple.
+
+
+\item \textbf{Conteggio delle entità}: Il conteggio delle entità si riferisce al numero totale delle entità che attraversano un processo o che sono ancora processate. Questa misura si ottiene calcolando la somma dei token processati e sommando i token ancora all'interno del processo. La grandezza di questa misura è in grado di fornire uno strumento utile per comprendere la confidenza da attribuire ai risultati ottenuti dalla simulazione.
+
+\item \textbf{L'utilizzo delle risorse}: Durante una simulazione, le risorse cambiano stato da non disponibili a occupate. Questo tipo di misura fornisce una la percentuale di tempo che una risorsa impiega in un determinato stato. La disponibilità e l'assegnamento delle risorse è dettato dalla necessità delle attività nel modello di utilizzare o meno una risorsa. Ne consegue che l'utilizzo di una risorsa fornisce un utile statisca nel misurare e analizzare il sotto utilizzo o il sovrautilizzo delle risorse
+
+\item \textbf{Costi delle attività}: 
+Una risorsa, quando è definita in un modello di process, è caratterizzata da: il numero di unità disponibili, il costo di utilizzo, il costo di installazione e i costi fissi a essa correlati. A questi parametri si aggiungono anche le risorse richieste per eseguirla e il tempo necessario per completarla. 
+Durante una simulazione, gli strumenti di BPS devono essere in grado di tenere automaticamente traccia del tempo che ogni token impiega in ogni attività e il tempo che ogni risorsa impiega per completare l'attività in quel momento in carico.
+I costi delle attività forniscono una misura realistica molto utilite per analizzare i costi derivanti da un processo.
+Gli strumenti BPS sono quindi in grado di fornire informazioni molto dettagliate per quanto concerne i costi di un'attività, ad ogni modo tali informazioni possono essere poi aggregate fornendo quindi misure di carattere più generale molto utili durante l'analisi delle performance di un processo.
+\end{enumerate}
+
+Esistono inoltre, misure di perfomrance avanzate che utilizzano elementi di modellazioni avanzati come attributi o espressioni. Queste misure sono in grado di dare informazioni utili riguardanti il livello di servizio fornito al cliente, la puntualità nel completamento di determinate attività, etc.
+
+
+\section{Come modellare un processo}
+
+La fase iniziale nello sviluppo di un processo è la progettazione. Questa fase permette di descrivere un processo formalmente. Un modello di processo formale fa si che la definizione del processo non sia ambigua, ciò significa che durante la sua implementazione non vi sia spazio per interpretazioni personali nel suo funzionamento.
+Esistono diverse sintassi che si possono utilizzare per descrivere un processo. Fra i linguaggi più ampiamente diffusi per descrivere un processo troviamo:
+
+\begin{enumerate}
+\item Flowchart: 
+i flowchart non sono altro che un insieme di rettangoli e line. Non hanno una sintassi ricca. Ne consegue che caratterizzare un processo utilizzando questa sintassi può diventare complesso.
+\item Event Process Chain Diagrams (EPC): Un grafo ordinato di eventi e funzioni; ogni attività all'interno del processo è attivata da un evento. [university michigan]
+\item Business Process Model and Notation (BPMN): Lo standard de facto per la rappresentazione dei diagrammi di business process [university michigan]. Questa sintassi verrà ampiamente discussa nel [capitolo 2].
+\item Business Process Execution Language (BPEL): Un linguaggio basato su xml per la rappresentazione dei business processes. BPEL è un linguaggio di orchestrazione, permettendo di interagire con altri servizi.  [defined by Steelnet Solutions, Inc.]
+\item Petri nets (PN): è un linguaggio matematico di modellazione per sistemi distributi. Ne esiste una sua versione grafica che può essere utilizzata per rappresentare i modelli di processo.
+\end{enumerate}
+
+ 
+Per quanto concerne le tecniche di modellazione invece, esistono diverse metodologie che permettono di modellizzare un processo.
+E' necessario soffermarsi su queste tecniche poiché il rischio di modellizzare un processo in maniera errata comporta la produzione di risultati non affidabili.
+
+Tali metodologie di Business process sono classificate in quattro macrocategorie:
+
+\begin{enumerate}
+\item Project-based processes
+\item Production-based processes
+\item Distribution-based processes
+\item Customer service based processes
+\end{enumerate}
+Questa classificazione non vuole imporre che tutti i porcessi esistenti debbano rientrare in una di queste categorie. Ad ogni modo lale considerazioni presentate nelle sottosezione che seguono dovrebbero dare fornire le principali linee guida da utilizzare nel momento in cui si vuole modelizzare un processo.
+
+\subsection{Project-based processes}
+
+Questi processi sono solitamente dati in carico a una singola persona o a un gruppo ristretto di persone. Esempi tipici sono lo sviluppo di prodotto o i processi amministrativi all'interno di un'azienda.
+L'utilizzo della simulazione nell'analisi dei project-based processes fa si che si producano risultati molto più accurati perché i tempi per le attività tipiche per queste tipologie di processi tendono ad avere tempistiche molto variabili e l'utilizzo di risorse multiple fa si che si vengano a creare diverse interdipendenze che è difficile ipotizzare a priori. 
+Questi tipi di simulazione devono tenere in considerazione diversi paramtri quali la prioritizzazione di alcuni task, la curva di apprendipendo per le risorse investite nel processo, etc. Tutti questi paramtetri sono fondamentali per costuire un sistema di simulazione valido e che produca risultati apprezzabili.
+
+In questa tipologia di processi è fondamentale essere in grado di eseguire un numero considerevole di simulazioni. Dal momento che i tempo per ogni singola attività può variare notevolmente data la natura del processo. L'esecuzione di multiple prove produce un numero considerevole di osservazioni le quali forniscono una più accurata stima delle misure di performance.
+
+\subsection{Production-based processes}
+
+
+In questo tipo di simulazioni gli output sono prodotti in gradi quantità, solitamente in lotti o come flusso continuo. Rientrano in questa categoria processi come : evasione degli ordini, reclami, etc. Le attività tipiche di questa categoria di processi sono batch, unbatching, assembly, disassembly, setup, inspection e rilavorazione. Per modellare accuratamente queste attività, un modello deve consentire di tenere traccia delle singole entità (token) e dei loro attributi. 
+
+
+Questa categoria di modelli di processo viene solitamente simulata con il fine di ottenere un processo a regime stazionario, cioè un modello nel quale viene sempre prodotta la medesima sequenza di prodotti. 
+
+Un concetto fondamentale nell'analisi delle prestazioni è l'eliminazione delle problematiche relative ai dati raccolti durante la fase di warm-up della simulazione. I dati prodotti in questa fase non vengono considerati validi. In questa prima parte della simulazione è quindi buona pratica non raccogliere i dati, attendendo che la fase di warm-up termini.
+
+
+\subsection{Distribution-based processes}
+
+Questa categoria di processi include i processi di trasporto e consegna. Qui i prodotti o le persone vengono trasportati tra le diverse sedi attraverso una rete di distribuzione. Una differenza fondamentale tra trasporto e consegna è che le Entità che vengono trasportate sono persone piuttosto che merci. I processi di trasoporto si trovano nei sistemi di trasporto di massa come nelle compagnie aeree o ferroviarie. Al contrario i processi di consegna si trovano nella distribuzione della produzione, nei servizi postali o di logistica. 
+Quando si modellano i processi di distribuzione, è importante definire gli attributi delle singole entità in maniera puntuale, quali: destinazione, dimensione o costo. Quando si modella il trasporto, a volte può essere più appropriato rappresentare le risorse di trasporto come entità piuttosto che come risorse.
+La maggior parte dei processi di distribuzione è transitoria nel comportamento. Pertanto, il periodo di simulazione dovrebbe essere abbastanza lungo così da permettere di completare tutte le attvità all'interno del processo, viene inoltre consiglato di eseguire il maggior numero di repliche per analizzare le misure di prestazione.
+
+\subsection{Customer service based processes}
+
+
+Questa tipologia di processi è quella che vede la maggior area di applicazione per la simulazione dei processi. Questo è dato dal fatto che il tempo totale di attesa è solitamente uguale al 95 \% del tempo totale di esecuzione di un processo basato sui servizi. 
+
+
+Solitamente queste tipologie di servizi vedono come unici attori gli esseri umani. Alcuni esempi sono i servizi telefonici come i call centers o i servizi sanitari come ospedali e farmacie.
+
+Gli esseri umani hanno un comportamento molto più complicato e non predicibile rispetto a prodotti, documenti etc.
+
+A questo si aggiunge che le risorse, in questo caso gli umani, possono cambiare il proprio comportamento a seconda dello stato nel quale si trova l'entità che prendono in carico.
+
+Senza contare che solitamente queste tipologie di servizi hanno tempistiche molto variabili e i clienti tendono ad arrivare in maniera casuale rendendo sempre più complessa la modellizazione in queste tipologie di processo.
+
+In questo caso è appropiato l'utilizzo di distribuzioni al fine di rappresentare la compnente aleatoria tipica di questi fenomeni.
+
+Ne consegue che è molto importante eseguire diverse simulazioni nel caso in cui si analizzino processi di questa tipologia, in modo da ottenere risultati statisticamente validi.
+
+
+\chapter{Bpmn e BPSim}                
+simulazione per BPMN, BPSim, cosa c'è già, motivazioni
+
+Questo capitolo tratta in primo luogo la specifica BPMN 2.0. Ne vengono descritti tutte le componenti e il loro utilizzo. In secondo luogo viene introdotta nel dettaglio la specifica BPSim e il ruolo che ricopre nel suo affiancamento a BPMN. Succesivamente si descrive lo stato dell'arte per quanto concerne i programmi di simulazione che utilizza lo specifiche citate e le motivazioni che hanno portato a sviluppare l'applicazione oggetto di questo elaborato.
+
+
+\section{BPMN}                 %crea la sezione
+
+BPMN è uno standard sviluppato dall'Object Management Group Inc. (OMG). La versione della specifica utilizzata per questo caso di studio è la 2.0 rilasciata nel 01/2011 da OMG.
+OMG è un organizzazione con partecipazione aperta, non a scopo di lucro che opera nel campo dell'informatica. 
+Il suo scopo è produrre e mantenere standard con il fine di rendere quest'ultimi interoperabili, portabili e riusabili in contesti enterprise.
+Fanno parte di questa organizzazione aziende operanti nel settore dellàinformatica, utenti, agenzie governative ed università.
+
+L'Object Management Group (OMG) ha sviluppato lo standard Business Process Model and Notation (BPMN).
+L'obbiettivo primario di BPMN è fornire una notazione che sia comprensibile a un ventaglio il più ampio possibile di ruoli.
+Qusta specifica infatti è stata pensata perchè possa essere utilizzata da coloro che operano nel campo del business come gli analisti i quali sono incaricati di produrre la bozza inziale dei processi aziendali, dagli sviluppatori che invece hanno il compito di implementare, utilizzando le teconologie esistenti, il processo definito e infine dal managment che deve gestire e monitorare tali processi.
+Quindi BPMN si va a posizionare in quella zona grigia che vi è fra la progettazione di un processo e la sua implementazione.
+Un altro obbietto, ma non meno importante, è assicurarsi che i linguaggi progettati per l'esecuzione del business process; come WSBPEL (Web Services Business Process Execution Language), possano essere visualizzati con una notazione business-oriented.
+Questa specifica rappresenta una fusione delle best practises definite dalla comunità di business modeling al fine di fornire la notazione e le semantiche dei diagrammi di collaborazione, dei diagrammi di processo e dei diagrammi di coreografia.
+L'intento di BPMN è di standardizzare la notazione utilizzata per definire i business process model al fine di ovviare tutte le problematiche relative alla presenza di diverse notazioni di modellazione. 
+Nel fare ciò, BPMN fornisce un semplice meccanismo per comunicare le informazioni relative a un processo ad altri agenti operanti nello stesso business come sviluppatori, clienti e fornitori.
+
+Nell'ultimo decennio si sono sviluppatti linguaggi come WSBPEL (Web Service Busiuness Process Execution Language).
+Al fine di fornire un meccanismo formale dei processi. Che è quello che si ripromette di fare BPMN.
+L'aspetto fondamentale e di che di conseguenza differenzia questi linguaggii da BPMN; è che tali linguaggi sono ottimizzati per interoperare con sistemi software tipici del business process managment.
+
+L'ottimizzazione di questi linguaggi per operazioni software, li rende meno adatti per l'utilizzo diretto da parte di coloro che operano nel managment.
+Data la natura di WSBPEL, un Business Process complesso potrebbe essere organizzato potenzialmente in un formato complesso, disgiunto e non-intuitivo che è gestito in maniera corretta dal sistema software ma che sarebbe di difficile comprensione per gli analisti business e i managers che hanno sviluppato tale processo.
+Quindi il grado di "protabilità" di questa rappresentazione a un livello di facile comprensione per l'uomo è discretamente basso.
+Al contrario gli le sezioni di Business Analysis hanno una notevole dimestichezza con la visualizzazione dei Buisiness Processses in formati come i flow-chart.
+Questo divario crea un gap tecnico notevole fra l'inizile formato di progettazione di un Business Processes e il formato che linguaggi come WSBPEL forniscono.
+Questo gap viene riempito con un meccanismo formale: mappando le visualizzazioni appropriate coadiuvate da una notazione con il formato di esecuzione corretto
+cioè il linguaggio di Business Processes Management Execution.
+BPMN  fornisce diversi diagrammi, i quali sono progettati per essere utilizzati dalle persone che progettano e gestiscono i Business Processes, inoltre fornisce una mappatura a un linguaggio di esecuzione dei sistemi BPM (WSBPEL). 
+Così, BPMN fornisce un meccanismo standardizzato di visualizzazione per i Business Processes permettendo poi di eseguire lo stesso processo utilizzando un business process language.
+
+
+
+
+
+This specification provides a notation and model for Business Processes and an interchange format that can be used
+to exchange BPMN Process definitions (both domain model and diagram layout) between different tools. The goal of
+the specification is to enable portability of Process definitions, so that users can take Process definitions created in
+one vendor?s environment and use them in another vendor?s environment
+
+
+
+%- BPMN quale specifica quando dove chi
+- BPMN perche'
+- Le componenti bpmn 
+	- componente 1
+	- componente 2
+	- ...
+	- componente n
+- 
+
+BPSim:
+- BPSim quale specifica quando dove chi
+- BPSim perche' (il ruolo che ricopre affiaco a bpmn)
+- le varie componenti BPSim
+	- componente 1
+	- componente 2
+	- ...
+	- componente n
+
+Applicazioni al giorno d'oggi:
+  - copiare paro paro il capitolo del libro
+  
+Motivazioni:
+  - perche' percome
+
+
+
+
+
+
+
+
+
+Ora vediamo un elenco numerato:         %crea un elenco numerato
+\begin{enumerate}
+\item primo oggetto
+\item secondo oggetto
+\item terzo oggetto
+\item quarto oggetto
+\end{enumerate}
+
+\begin{figure}[h]                       %crea l'ambiente figura; [h] sta
+                                        %   per here, cioè la figura va qui
+\begin{center}                          %centra nel mezzo della pagina
+                                        %   la figura
+%\includegraphics[width=5cm]{figura.eps}%inserisce una figura larga 5cm
+                                        %se si vuole usare va scommentata
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%inserisce la legenda ed etichetta
+                                        %   la figura con \label{fig:prima}
+\caption[legenda elenco figure]{legenda sotto la figura}\label{fig:prima}
+\end{center}
+\end{figure}
+
+
+Ora vediamo un elenco puntato:
+\begin{itemize}                         %crea un elenco puntato
+\item primo oggetto
+\item secondo oggetto
+\end{itemize}
+
+\section{Altra Sezione}
+Vediamo un elenco descrittivo:
+\begin{description}                     %crea un elenco descrittivo
+  \item[OGGETTO1] prima descrizione;
+  \item[OGGETTO2] seconda descrizione;
+  \item[OGGETTO3] terza descrizione.
+\end{description}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%crea una sottosezione
+\subsection{Altra SottoSezione}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%crea una sottosottosezione
+\subsubsection{SottoSottoSezione}Questa sottosottosezione non viene
+numerata, ma \`e solo scritta in grassetto.
+\section{Altra Sezione}                 %crea una sottosezione
+Vediamo la creazione di una tabella; la tabella \ref{tab:uno}
+(richiamo il nome della tabella utilizzando la label che ho messo sotto):
+la facciamo di tre righe e tre colonne, la prima colonna
+``incolonnata'' a destra (r) e le altre centrate (c):\\
+\begin{table}[h]                        %ambiente tabella
+                                        %(serve per avere la legenda)
+\begin{center}                          %centra nella pagina la tabella
+\begin{tabular}{r|c|c}                  %tre colonne con righe verticali
+                                        %   prodotte con |
+\hline \hline                           %inserisce due righe orizzontali
+$(1,1)$ & $(1,2)$ & $(1,3)$\\           %& separa le colonne e con
+\hline                                  %inserisce una riga orizzontale
+$(2,1)$ & $(2,2)$ & $(2,3)$\\           %  \\ va a capo
+\hline                                  %inserisce una riga orizzontale
+$(3,1)$ & $(3,2)$ & $(3,3)$\\
+\hline \hline                           %inserisce due righe orizzontali
+\end{tabular}
+\caption[legenda elenco tabelle]{legenda tabella}\label{tab:uno}
+\end{center}
+\end{table}
+\begin{verbatim}
+        In questo ambiente     posso scrivere      come voglio,
+lasciare gli spazi che voglio e non % commentare quando voglio
+e ci sarà scritto tutto.
+Quando lo uso è meglio che disattivi il Wrap del WinEdt
+\end{verbatim}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%per fare le conclusioni
+\chapter*{Conclusioni}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\rhead[\fancyplain{}{\bfseries
+CONCLUSIONI}]{\fancyplain{}{\bfseries\thepage}}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
+CONCLUSIONI}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%aggiunge la voce Conclusioni
+                                        %   nell'indice
+\addcontentsline{toc}{chapter}{Conclusioni} Queste sono le
+conclusioni.\\
+In queste conclusioni voglio fare un riferimento alla
+bibliografia: questo \`e il mio riferimento \cite{K3,K4}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\renewcommand{\chaptermark}[1]{\markright{\thechapter \ #1}{}}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}
+\appendix                               %imposta le appendici
+\chapter{Prima Appendice}               %crea l'appendice
+In questa Appendice non si \`e utilizzato il comando:\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\verb"" è equivalente all'
+                                        %   ambiente verbatim,
+                                        %   ma si utilizza all'interno
+                                        %   di un discorso.
+\verb"\clearpage{\pagestyle{empty}\cleardoublepage}", ed infatti
+l'ultima pagina 8 ha l'intestazione con il numero di pagina in
+alto.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\rhead[\fancyplain{}{\bfseries \thechapter \:Prima Appendice}]
+{\fancyplain{}{\bfseries\thepage}}
+\chapter{Seconda Appendice}             %crea l'appendice
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%imposta l'intestazione di pagina
+\rhead[\fancyplain{}{\bfseries \thechapter \:Seconda Appendice}]
+{\fancyplain{}{\bfseries\thepage}}
+\begin{thebibliography}{90}             %crea l'ambiente bibliografia
+\rhead[\fancyplain{}{\bfseries \leftmark}]{\fancyplain{}{\bfseries
+\thepage}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%aggiunge la voce Bibliografia
+                                        %   nell'indice
+\addcontentsline{toc}{chapter}{Bibliografia}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%provare anche questo comando:
+%%%%%%%%%%%\addcontentsline{toc}{chapter}{\numberline{}{Bibliografia}}
+\bibitem{BUSINESS PROCESS GLOSSARY} https://www.businessprocessglossary.com/11573/entity
+\bibitem{BUSINESS PROCESS SIMULATION} https://pdfs.semanticscholar.org/47c3/50ddd70e130b20db9463e615955301d5c75a.pdf
+\bibitem{K3} Terzo oggetto bibliografia.
+\bibitem{K4} Quarto oggetto bibliografia.
+\end{thebibliography}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%non numera l'ultima pagina sinistra
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\chapter*{Ringraziamenti}
+\thispagestyle{empty}
+Qui possiamo ringraziare il mondo intero!!!!!!!!!!\\
+Ovviamente solo se uno vuole, non \`e obbligatorio.
+\end{document}
